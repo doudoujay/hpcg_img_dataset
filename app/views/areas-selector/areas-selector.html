@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="hpcg_img_dataset">
-<head>
-    <meta charset="UTF-8">
-    <title>Select Areas - Angular JS 1.4</title>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <h1>Image Area Selector</h1>
 
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../../bower_components/angular/angular.js"></script>
-    <script src="../../bower_components/angular-areas/angular-areas.js"></script>
-    <script src="app.js"></script>
-
-    <link href="../../bower_components/angular-areas/css/angular-areas.css" media="screen"
-          rel="stylesheet" type="text/css" />
-
-</head>
-<body>
-
-<h1>Angular Image Areas Directive Demo</h1>
-
-<div ng-controller="DemoController">
-    <img ng-areas="fields900" ng-areas-width="900"
-         ng-areas-allow="{'edit':true, 'move':true, 'resize':true, 'select':true, 'remove':true, 'nudge':false}"
-         ng-areas-on-add="onAddArea"
-         ng-areas-on-remove="onRemoveArea"
-         ng-areas-on-change="onChangeAreas900"
-         ng-areas-extend-data="{pageNumber: 1, tag: 'width900'}"
-         ng-src="test.jpg">
-    <div>Event Log: {{log900}}</div>
+                    <div ng-controller="DemoController" class="">
+                        <img ng-areas="fields900" ng-areas-width="90%"
+                             ng-areas-allow="{'edit':true, 'move':true, 'resize':true, 'select':true, 'remove':true, 'nudge':false}"
+                             ng-areas-on-add="onAddArea"
+                             ng-areas-on-remove="onRemoveArea"
+                             ng-areas-on-change="onChangeAreas900"
+                             ng-areas-extend-data="{pageNumber: 1, tag: 'width900'}"
+                             ng-src="/assets/img/test.jpg">
+                        <div>Event Log: {{log900}}</div>
 
 
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
-</html>
