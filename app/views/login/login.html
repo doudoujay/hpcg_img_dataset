@@ -1,9 +1,9 @@
-<div class="content">
+<div class="content" ng-controller="login">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
 
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title">Login <i class="pe-7s-lock"></i></h4>
             </div>
             <div class="modal-body text-center">
                 <div class="box">
@@ -12,9 +12,9 @@
                         <div class="error"></div>
                         <div class="form loginBox row">
                             <form>
-                                <input id="id" class="input-lg col-md-8 col-md-offset-2" type="text" placeholder="ID" name="ID">
+                                <input class="input-lg col-md-8 col-md-offset-2" type="text" placeholder="ID" ng-model="id">
 
-                                <input class="btn btn-default btn-login col-md-8 col-md-offset-2" type="button" value="Login" onclick="loginAjax()">
+                                <input class="btn btn-default btn-login col-md-8 col-md-offset-2" type="button" value="Login" ng-click="login()">
                             </form>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                     <!--<span>Already have an account?</span>-->
                     <!--<a href="javascript: showLoginForm();">Login</a>-->
                 <!--</div>-->
-
+                <i class="pe-7s-lock"></i>
             </div>
         </div>
     </div>
