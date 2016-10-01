@@ -1,23 +1,23 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.controller('login', function ($scope, id,$location) {
+app.controller('login', function ($scope, id,$location,$cookieStore) {
 
     $scope.id = '';
     $scope.login = function () {
 
-        console.log($scope.id)
-
-
-        if (!!~$scope.id.indexOf(['aa']) ){
+        if (id.validIds.indexOf($scope.id) > -1 ){
 
             console.log($scope.id)
+            $cookieStore.put("id",$scope.id)
             $location.path('/').replace()
         }
         else {
             alert($scope.id + " does not exist!")
         }
     }
+
+
 
 
 });

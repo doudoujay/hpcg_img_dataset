@@ -5,6 +5,15 @@ var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies']
 
 });
 
+app.controller('main', function ($scope,$cookieStore,$location) {
+    $scope.logout = function () {
+        $cookieStore.remove("id");
+        $location.path('/login').replace()
+    }
+
+
+});
+
 //routing setup
 app.config(function ($routeProvider) {
     $routeProvider

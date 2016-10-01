@@ -3,10 +3,10 @@
  */
 app.service('imageData', function ($http, $cookieStore, $rootScope) {
     this.getImageCategory = function () {
-        
+
     }
-    
+
     this.getImagesForCategory = function (category) {
-        
+
     }
 })

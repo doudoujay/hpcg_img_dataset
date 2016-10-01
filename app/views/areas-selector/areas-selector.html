@@ -1,19 +1,25 @@
 
-<div class="content">
+<div class="content" ng-controller="area-selector">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card text-center">
                     <h1>Image Area Selector</h1>
 
-                    <div ng-controller="DemoController" class="">
-                        <img ng-areas="fields900" ng-areas-width="90%"
+                    <div  class="">
+                        <img ng-areas="fields900"
                              ng-areas-allow="{'edit':true, 'move':true, 'resize':true, 'select':true, 'remove':true, 'nudge':false}"
                              ng-areas-on-add="onAddArea"
                              ng-areas-on-remove="onRemoveArea"
-                             ng-areas-on-change="onChangeAreas900"
-                             ng-areas-extend-data="{pageNumber: 1, tag: 'width900'}"
-                             ng-src="/assets/img/test.jpg">
+                             ng-areas-on-change="onChangeAreas"
+                             ng-areas-extend-data="{}"
+                             ng-src="/assets/img/test.jpg" class="">
+                        <br>
+                        <div class="row">
+                            <button class="btn btn-default btn-lg" ng-click="goBack()">Back</button>
+                            <button class="btn btn-default btn-lg" ng-click="goNext()">Next</button>
+                            <button class="btn btn-danger btn-lg" ng-click="quit()">Quit</button>
+                        </div>
                         <div>Event Log: {{log900}}</div>
 
 
