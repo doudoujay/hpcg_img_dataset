@@ -13,7 +13,7 @@ app.controller('area-selector', function ($scope, imageData,saveToPc) {
         console.log(areas);
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
-        saveToPc.saveToPc(areas, "test.json")
+
     }
 
 

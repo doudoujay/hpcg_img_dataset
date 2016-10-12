@@ -13,5 +13,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope) {
         //    TODO: API For getImages
 
     }
-
+    this.submitImageData = function () {
+        console.log("Image Data Submitted")
+    }
 })
