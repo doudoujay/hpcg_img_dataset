@@ -4,7 +4,6 @@
 app.service('imageData', function ($http, $cookieStore, $rootScope, $http) {
     $rootScope.imageId = 0
     this.getImageCategories = function () {
-        //    TODO: API For getImageCategory
         return [
             "Face", "Cat", "Car", "Boy"
         ]

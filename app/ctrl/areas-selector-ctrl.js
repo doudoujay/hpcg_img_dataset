@@ -11,7 +11,7 @@ app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope)
 
 
     $scope.onAddArea = function (ev, boxId, areas, area) {
-        console.log(areas);
+
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
 
@@ -19,15 +19,18 @@ app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope)
 
 
     $scope.onChangeAreas = function (ev, boxId, areas, area) {
-        console.log(areas);
+
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
     }
     $scope.onRemoveArea = function (ev, boxId, areas, area) {
-        console.log("removed");
+
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
+
     }
+
+
 
 
     //Buttons
@@ -47,6 +50,9 @@ app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope)
         }else{
             $rootScope.imageId = $rootScope.imageId + 1
         //    TODO: fix the change image bug
+
+
+
         }
 
     }
