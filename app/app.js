@@ -1,15 +1,16 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies']).run(function () {
+var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies','angular-loading-bar', 'ngAnimate']).run(function () {
 
 });
 
-app.controller('main', function ($scope,$cookieStore,$location) {
+app.controller('main', function ($scope,$cookieStore,$location,imageData) {
     $scope.logout = function () {
         $cookieStore.remove("id");
         $location.path('/login').replace()
     }
+    imageData.getImages()
 
 
 });
@@ -46,3 +47,9 @@ var checkRouting = function ($q, $rootScope, $location, id) {
         $location.path("/login");
     }
 };
+
+var backendUrl = {
+    url:"http://localhost:5000/",
+    img: "http://localhost:5000/static/data/img/",
+    imgData: "http://localhost:5000/static/data/imgData/"
+}

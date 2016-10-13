@@ -1,9 +1,10 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.controller('area-selector', function ($scope, imageData,saveToPc) {
+app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope) {
     // $http.get('data-api.json').success(function(response) {
     // $scope.fields = response.data;
+
     var testData = [];
 
     $scope.fields900 = testData.slice(0);
@@ -30,11 +31,24 @@ app.controller('area-selector', function ($scope, imageData,saveToPc) {
 
 
     //Buttons
-    $scope.goBack = function () {
-        console.log("back")
+    $scope.goBack = function (areas) {
+        if ($rootScope.imageId == 0){
+            alert("No More Image")
+        }else{
+            $rootScope.imageId = $rootScope.imageId -1
+
+        }
+
+
     }
-    $scope.goNext = function () {
-        console.log("next")
+    $scope.goNext = function (areas) {
+        if ($rootScope.imageId == $rootScope.images.length-1){
+            alert("No More Image")
+        }else{
+            $rootScope.imageId = $rootScope.imageId + 1
+        //    TODO: fix the change image bug
+        }
+
     }
     $scope.quit = function (areas) {
         console.log("quit")
