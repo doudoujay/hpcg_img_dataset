@@ -28,10 +28,10 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http) {
             });
 
     }
-    this.submitImageData = function (imageData) {
+    this.submitImageData = function (imageData,imageDataName) {
         var req = {
-            method: 'POST',
-            url: backendUrl.url,
+            method: 'PUT',
+            url: backendUrl.url+'imageData/'+imageDataName,
             data: imageData
         }
         $http(req)
