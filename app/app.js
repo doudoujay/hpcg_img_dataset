@@ -33,6 +33,7 @@ app.config(function ($routeProvider) {
             templateUrl: "/views/dashboard/dashboard.html",
             resolve: {factory: checkRouting}
         })
+
         .otherwise({
             templateUrl: "/views/dashboard/dashboard.html",
             resolve: {factory: checkRouting}

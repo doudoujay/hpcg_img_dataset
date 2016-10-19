@@ -1,20 +1,37 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope) {
-    // $http.get('data-api.json').success(function(response) {
-    // $scope.fields = response.data;
-
+app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScope, $route,$window,$cookieStore) {
 
 
     $scope.fields900 = [];
 
 
+    $scope.$watch(function () {
+        return $rootScope.fields900;
+    }, function () {
+        $scope.fields900 = $rootScope.fields900;
+    }, true);
+
+    imageData.getImageData($rootScope.images[$rootScope.imageId])
+
+
+    $rootScope.getImageUrl = function () {
+
+        if ($rootScope.images) {
+            return backendUrl.img + $rootScope.images[$rootScope.imageId]
+        } else {
+
+            console.log('no data')
+
+        }
+
+    }
     $scope.onAddArea = function (ev, boxId, areas, area) {
 
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
-        $scope.areas = areas
+
 
     }
 
@@ -23,38 +40,40 @@ app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope)
 
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
-        $scope.areas = areas
+
     }
     $scope.onRemoveArea = function (ev, boxId, areas, area) {
 
         $scope.log900 = JSON.stringify(areas);
         $scope.$apply();
-        $scope.areas = areas
+
     }
-
-
 
 
     //Buttons
     $scope.goBack = function () {
-        imageData.submitImageData($scope.log900,$scope.images[$scope.imageId])
-        if ($rootScope.imageId == 0){
+        imageData.submitImageData($scope.log900, $scope.images[$scope.imageId])
+        if ($rootScope.imageId == 0) {
             alert("No More Image")
-        }else{
+        } else {
 
-            $rootScope.imageId = $rootScope.imageId -1
+            $cookieStore.put('imageId',$rootScope.imageId - 1)
+            $window.location.reload();
+
 
         }
 
 
     }
     $scope.goNext = function () {
-        imageData.submitImageData($scope.log900,$scope.images[$scope.imageId])
-        if ($rootScope.imageId == $rootScope.images.length-1){
+        imageData.submitImageData($scope.log900, $scope.images[$scope.imageId])
+        if ($rootScope.imageId == $rootScope.images.length - 1) {
             alert("No More Image")
-        }else{
-            $rootScope.imageId = $rootScope.imageId + 1
-        //    TODO: fix the change image bug
+        } else {
+
+
+            $cookieStore.put('imageId',$rootScope.imageId + 1)
+            $window.location.reload();
 
 
 
@@ -62,8 +81,9 @@ app.controller('area-selector', function ($scope, imageData,saveToPc,$rootScope)
 
     }
     $scope.quit = function (areas) {
-        imageData.submitImageData($scope.log900,$scope.images[$scope.imageId])
+        imageData.submitImageData($scope.log900, $scope.images[$scope.imageId])
         console.log("quit")
+
     }
 
 });

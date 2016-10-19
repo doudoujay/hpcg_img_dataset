@@ -2,9 +2,9 @@
 <div class="content" ng-controller="area-selector">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
 
-                <div class="card text-center">
+            <div class="col-md-12">
+                <div class="card text-center" ng-if="images">
                     <h1>Image Area Selector</h1>
                     <div class="row">
                         <button class="btn btn-default btn-lg" ng-click="goBack()">Back</button>
@@ -32,7 +32,7 @@
 
 
                 </div>
-
+                <div ng-if="images == null"><h1>No Image</h1></div>
             </div>
         </div>
     </div>
