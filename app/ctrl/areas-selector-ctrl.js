@@ -5,12 +5,18 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
 
 
     $scope.fields900 = [];
-
+    imageData.getImages()
 
     $scope.$watch(function () {
         return $rootScope.fields900;
     }, function () {
         $scope.fields900 = $rootScope.fields900;
+    }, true);
+
+    $scope.$watch(function () {
+        return $rootScope.imageUrl;
+    }, function () {
+        $scope.imageUrl = $rootScope.imageUrl;
     }, true);
 
     imageData.getImageData($rootScope.images[$rootScope.imageId])
@@ -19,7 +25,9 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
     $rootScope.getImageUrl = function () {
 
         if ($rootScope.images) {
-            return backendUrl.img + $rootScope.images[$rootScope.imageId]
+            console.log('dasdaasdsa')
+            $rootScope.imageUrl =  backendUrl.img + $rootScope.images[$rootScope.imageId]
+            return $rootScope.imageUrl
         } else {
 
             console.log('no data')

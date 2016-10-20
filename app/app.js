@@ -50,7 +50,7 @@ var checkRouting = function ($q, $rootScope, $location, id) {
 };
 
 var backendUrl = {
-    url:"http://localhost:5000/",
-    img: "http://localhost:5000/static/data/img/",
-    imgData: "http://localhost:5000/static/data/imgData/"
+    url:"http://hpcg.doudoujay.com:5000/",
+    img: "http://hpcg.doudoujay.com:5000/static/data/img/",
+    imgData: "http://hpcg.doudoujay.com:5000/static/data/imgData/"
 }
