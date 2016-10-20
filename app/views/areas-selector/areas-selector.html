@@ -12,13 +12,17 @@
                         <button class="btn btn-danger btn-lg" ng-click="quit()">Quit</button>
                     </div>
                     <div  class="row">
-                        <img ng-areas="fields900"
+
+                        <img style="width: 800px;height: 800px" ng-src={{getImageUrl()}} alt="" class="col-md-12" spinkit-image-preloader='pulse-spinner' id="imgloader" >
+
+                        <img
+                             ng-areas="fields900"
                              ng-areas-allow="{'edit':true, 'move':true, 'resize':true, 'select':true, 'remove':true, 'nudge':false}"
                              ng-areas-on-add="onAddArea"
                              ng-areas-on-remove="onRemoveArea"
                              ng-areas-on-change="onChangeAreas"
                              ng-areas-extend-data="{}"
-                             ng-src={{getImageUrl()}} id="imgArea">
+                             ng-src={{getImageUrl()}} id="img">
 
 
 

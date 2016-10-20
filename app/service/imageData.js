@@ -38,6 +38,24 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
+    this.getImagesNoCached = function () {
+
+
+        $http.get(backendUrl.url + "images")
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $cookieStore.put('images', response.data)
+                $rootScope.images = $cookieStore.get('images')
+
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("Can not fetch Image Data")
+            });
+
+
+    }
     this.submitImageData = function (imageData, imageDataName) {
 
         var req = {
@@ -67,7 +85,6 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 // this callback will be called asynchronously
                 // when the response is available
                 $rootScope.fields900 = response.data
-                console.error('new fields 900')
                 console.log($rootScope.fields900)
 
 

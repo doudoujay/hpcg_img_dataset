@@ -1,11 +1,12 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScope, $route,$window,$cookieStore) {
+app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScope, $route, $window, $cookieStore) {
 
 
     $scope.fields900 = [];
     imageData.getImages()
+
 
     $scope.$watch(function () {
         return $rootScope.fields900;
@@ -13,20 +14,19 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
         $scope.fields900 = $rootScope.fields900;
     }, true);
 
-    $scope.$watch(function () {
-        return $rootScope.imageUrl;
-    }, function () {
-        $scope.imageUrl = $rootScope.imageUrl;
-    }, true);
 
     imageData.getImageData($rootScope.images[$rootScope.imageId])
+
+    $scope.$on('angular-spinkit:imageLoaded', function(){
+        $('#imgloader').remove()
+    });
 
 
     $rootScope.getImageUrl = function () {
 
+
         if ($rootScope.images) {
-            console.log('dasdaasdsa')
-            $rootScope.imageUrl =  backendUrl.img + $rootScope.images[$rootScope.imageId]
+            $rootScope.imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
             return $rootScope.imageUrl
         } else {
 
@@ -65,7 +65,7 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
             alert("No More Image")
         } else {
 
-            $cookieStore.put('imageId',$rootScope.imageId - 1)
+            $cookieStore.put('imageId', $rootScope.imageId - 1)
             $window.location.reload();
 
 
@@ -80,9 +80,8 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
         } else {
 
 
-            $cookieStore.put('imageId',$rootScope.imageId + 1)
+            $cookieStore.put('imageId', $rootScope.imageId + 1)
             $window.location.reload();
-
 
 
         }
