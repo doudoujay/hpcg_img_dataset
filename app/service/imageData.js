@@ -56,7 +56,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
-    this.submitImageData = function (imageData, imageDataName) {
+    this.submitImageData = function (imageData, imageDataName,callback) {
 
         var req = {
             method: 'PUT',
@@ -67,6 +67,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             .then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                callback()
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
