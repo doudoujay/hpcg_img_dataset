@@ -13,7 +13,9 @@
                     </div>
                     <div  class="row">
 
-                        <img style="width: 800px;height: 800px" ng-src={{getImageUrl()}} alt="" class="col-md-12" spinkit-image-preloader='pulse-spinner' id="imgloader" >
+                        <img style="width: 800px;height: 800px" ng-src={{imageUrl}} alt="" class="col-md-12" spinkit-image-preloader='pulse-spinner' id="imgloader"  >
+
+
 
                         <img
                              ng-areas="fields900"
@@ -22,7 +24,7 @@
                              ng-areas-on-remove="onRemoveArea"
                              ng-areas-on-change="onChangeAreas"
                              ng-areas-extend-data="{}"
-                             ng-src={{getImageUrl()}} id="img">
+                             ng-src={{imageUrl}} id="img">
 
 
 

@@ -14,6 +14,11 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
         $scope.fields900 = $rootScope.fields900;
     }, true);
 
+    // $scope.$watch(function () {
+    //     return $scope.imageUrl;
+    // }, function () {
+    //     $scope.imageUrl = $scope.imageUrl;
+    // }, true);
 
     imageData.getImageData($rootScope.images[$rootScope.imageId])
 
@@ -22,12 +27,23 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
     });
 
 
-    $rootScope.getImageUrl = function () {
-
+    var getImageUrl = function () {
+        var displayImg = function (url) {
+            $scope.imageUrl = url
+        }
 
         if ($rootScope.images) {
-            $rootScope.imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
-            return $rootScope.imageUrl
+            var imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
+            var options= {canvas:true}
+            console.log(imageUrl)
+            displayImg(imageUrl)
+            EXIF.getData(imageUrl, function () {
+                var allMetaData = EXIF.getAllTags(this);
+                console.log(allMetaData.orientation)
+            });
+
+
+
         } else {
 
             console.log('no data')
@@ -35,6 +51,7 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
         }
 
     }
+    getImageUrl()
     $scope.onAddArea = function (ev, boxId, areas, area) {
 
         $scope.log900 = JSON.stringify(areas);

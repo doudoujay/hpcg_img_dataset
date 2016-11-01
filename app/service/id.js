@@ -8,7 +8,9 @@ app.service('id', function ($http, $cookieStore, $rootScope,$location) {
     }
     this.validIds = [
         'doudoujay',
-        'aa'
+        'aa',
+        'bb',
+        'cc'
     ]
 
     this.getUserId = function () {

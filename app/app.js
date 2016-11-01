@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies','angular-loading-bar', 'ngAnimate','angular-spinkit']).run(function () {
+var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies','angular-loading-bar', 'ngAnimate','angular-spinkit','cp.ng.fix-image-orientation']).run(function () {
 
 });
 
@@ -11,6 +11,7 @@ app.controller('main', function ($scope,$cookieStore,$location,imageData) {
         $location.path('/login').replace()
     }
     $scope.refresh =function () {
+        //TODO: sync compability
         imageData.getImagesNoCached()
     }
     imageData.getImages()
