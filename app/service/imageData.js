@@ -96,4 +96,29 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
     }
 
+    this.getImageUrl = function () {
+        var displayImg = function (url) {
+            $rootScope.imageUrl = url
+        }
+
+        if ($rootScope.images) {
+            var imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
+            var options= {canvas:true}
+            console.log(imageUrl)
+            displayImg(imageUrl)
+            EXIF.getData(imageUrl, function () {
+                var allMetaData = EXIF.getAllTags(this);
+                console.log(allMetaData.orientation)
+            });
+
+
+
+        } else {
+
+            console.log('no data')
+
+        }
+
+    }
+
 })

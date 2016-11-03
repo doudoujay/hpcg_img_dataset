@@ -3,7 +3,7 @@
         <div class="row">
             <div ng-repeat="catagory in imageCatogories">
             <div class="col-md-3">
-                <div class="card text-center" >
+                <div class="card text-center" ng-click="gotoCategory(catagory)">
                     <i class="pe-7s-look"></i>
                     <h1>{{catagory}}</h1>
 

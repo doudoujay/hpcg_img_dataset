@@ -1,0 +1,29 @@
+<div class="content" ng-controller="quikCategory">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <h1>Check The {{category}}</h1>
+                    <div class="row">
+                        <button class="btn btn-default btn-lg" ng-click="">Yes</button>
+                        <button class="btn btn-default btn-lg" ng-click="">No</button>
+
+                    </div>
+
+                    <img ng-src={{imageUrl}} alt="" class="col-md-12"  >
+
+                    <div class="row">
+                        <button class="btn btn-default btn-lg" ng-click="goBack()">Back</button>
+                        <button class="btn btn-default btn-lg" ng-click="goNext()">Next</button>
+                        <button class="btn btn-danger btn-lg" ng-click="quit()">Quit</button>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -27,31 +27,8 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
     });
 
 
-    var getImageUrl = function () {
-        var displayImg = function (url) {
-            $scope.imageUrl = url
-        }
+    imageData.getImageUrl()
 
-        if ($rootScope.images) {
-            var imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
-            var options= {canvas:true}
-            console.log(imageUrl)
-            displayImg(imageUrl)
-            EXIF.getData(imageUrl, function () {
-                var allMetaData = EXIF.getAllTags(this);
-                console.log(allMetaData.orientation)
-            });
-
-
-
-        } else {
-
-            console.log('no data')
-
-        }
-
-    }
-    getImageUrl()
     $scope.onAddArea = function (ev, boxId, areas, area) {
 
         $scope.log900 = JSON.stringify(areas);

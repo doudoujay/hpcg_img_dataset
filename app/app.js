@@ -23,6 +23,7 @@ app.controller('main', function ($scope,$cookieStore,$location,imageData) {
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
+            templateUrl: "/views/dashboard/dashboard.html",
             resolve: {factory: checkRouting}
         })
         .when("/area-selector", {
@@ -37,7 +38,10 @@ app.config(function ($routeProvider) {
             templateUrl: "/views/dashboard/dashboard.html",
             resolve: {factory: checkRouting}
         })
-
+        .when("/quikCategory", {
+            templateUrl: "/views/quikCategory/quikCategory.html",
+            resolve: {factory: checkRouting}
+        })
         .otherwise({
             templateUrl: "/views/dashboard/dashboard.html",
             resolve: {factory: checkRouting}
