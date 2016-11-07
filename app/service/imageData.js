@@ -56,7 +56,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
-    this.submitImageData = function (imageData, imageDataName,callback) {
+    this.submitImageData = function (imageData, imageDataName, callback) {
 
         var req = {
             method: 'PUT',
@@ -73,6 +73,22 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 // or server returns response with an error status.
             });
 
+    }
+    this.submitQuikCategoryData = function (imageData, imageDataName, callback) {
+        var req = {
+            method: 'PUT',
+            url: backendUrl.url + 'imageQuikCategory/' + imageDataName,
+            data: imageData
+        }
+        $http(req)
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                callback()
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
     }
     this.getImageData = function (imageDataName) {
 
@@ -103,14 +119,13 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
         if ($rootScope.images) {
             var imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
-            var options= {canvas:true}
+            var options = {canvas: true}
             console.log(imageUrl)
             displayImg(imageUrl)
             EXIF.getData(imageUrl, function () {
                 var allMetaData = EXIF.getAllTags(this);
                 console.log(allMetaData.orientation)
             });
-
 
 
         } else {
