@@ -40,4 +40,38 @@ app.controller('quikCategory', function ($scope,imageData,$rootScope,$cookieStor
         }
         callback()
     }
+    
+    $scope.yes =function () {
+        var callback = function () {
+            if ($rootScope.imageId == $rootScope.images.length-1) {
+                alert("No More Image")
+            } else {
+                $rootScope.imageId =$rootScope.imageId + 1
+                $cookieStore.put('imageId', $rootScope.imageId + 1)
+
+                imageData.getImageUrl()
+
+
+            }
+        }
+        callback()
+        
+    }
+    $scope.no = function () {
+        var callback = function () {
+            if ($rootScope.imageId == $rootScope.images.length-1) {
+                alert("No More Image")
+            } else {
+                $rootScope.imageId =$rootScope.imageId + 1
+                $cookieStore.put('imageId', $rootScope.imageId + 1)
+
+                imageData.getImageUrl()
+
+
+            }
+        }
+        callback()
+        
+    }
+
 });
