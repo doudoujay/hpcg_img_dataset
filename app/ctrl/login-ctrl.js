@@ -3,7 +3,7 @@
  */
 app.controller('login', function ($scope, id,$location,$cookieStore, $rootScope) {
 
-    $rootScope.id = '';
+    $scope.id = '';
     $scope.login = function () {
 
         if (id.validIds.indexOf($scope.id) > -1 ){
