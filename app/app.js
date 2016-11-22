@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies','angular-loading-bar', 'ngAnimate','angular-spinkit','cp.ng.fix-image-orientation','cfp.hotkeys']).run(function () {
+var app = angular.module("hpcg_img_dataset", ['ngAreas', 'ngRoute', 'ngCookies','angular-loading-bar', 'ngAnimate','angular-spinkit','cp.ng.fix-image-orientation','cfp.hotkeys','ngSanitize','btford.markdown']).run(function () {
 
 });
 
@@ -40,6 +40,10 @@ app.config(function ($routeProvider) {
         })
         .when("/quikCategory", {
             templateUrl: "/views/quikCategory/quikCategory.html",
+            resolve: {factory: checkRouting}
+        })
+        .when("/guideline", {
+            templateUrl: "/views/guideline/guideline.html",
             resolve: {factory: checkRouting}
         })
         .otherwise({

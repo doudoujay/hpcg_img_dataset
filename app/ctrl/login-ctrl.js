@@ -1,9 +1,9 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.controller('login', function ($scope, id,$location,$cookieStore) {
+app.controller('login', function ($scope, id,$location,$cookieStore, $rootScope) {
 
-    $scope.id = '';
+    $rootScope.id = '';
     $scope.login = function () {
 
         if (id.validIds.indexOf($scope.id) > -1 ){
