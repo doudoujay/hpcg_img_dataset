@@ -24,15 +24,15 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope) {
     Chartist.Pie('#imagesChart', dataPreferences, optionsPreferences);
 
     Chartist.Pie('#imagesChart', {
-        labels: ['62%','32%','6%'],
-        series: [62, 32, 6]
+        labels: ['62%','32%'],
+        series: [62, 32]
     });
 
     Chartist.Pie('#objectsChart', dataPreferences, optionsPreferences);
 
     Chartist.Pie('#objectsChart', {
-        labels: ['62%','32%','6%'],
-        series: [62, 32, 6]
+        labels: ['62%','32%'],
+        series: [62, 32]
     });
 
 });
