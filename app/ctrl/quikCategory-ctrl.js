@@ -2,8 +2,12 @@
  * Created by jay on 2016/11/2.
  */
 app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore) {
+    $scope.id = $cookieStore.get('id')
     imageData.getImages()
-    imageData.getImageUrl()
+    imageData.getUserCurrentBatch($scope.id,annotatorType[1])
+    imageData.getBatchImageUrl()
+
+
 
 
     $scope.goBack = function () {
@@ -26,7 +30,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
 
     $scope.goNext = function () {
         var callback = function () {
-            if ($rootScope.imageId == $rootScope.images.length - 1) {
+            if ($rootScope.imageId == $rootScope.batch['files'].length - 1) {
                 alert("No More Image")
             } else {
                 $rootScope.imageId = $rootScope.imageId + 1

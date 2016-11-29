@@ -38,6 +38,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
+
     this.getImagesNoCached = function () {
 
 
@@ -56,6 +57,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
+
     this.submitImageData = function (imageData, imageDataName, callback) {
 
         var req = {
@@ -120,6 +122,94 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         if ($rootScope.images) {
             var imageUrl = backendUrl.img + $rootScope.images[$rootScope.imageId]
             var options = {canvas: true}
+            displayImg(imageUrl)
+            EXIF.getData(imageUrl, function () {
+                var allMetaData = EXIF.getAllTags(this);
+                console.log(allMetaData.orientation)
+            });
+
+
+        } else {
+
+            console.log('no data')
+
+        }
+
+    }
+    this.getUserCurrentBatch = function (userid, type) {
+        if ($cookieStore.get('batch')) {
+            $rootScope.batch = $cookieStore.get('batch')
+        } else {
+            $http.get(backendUrl.url + "batch/userCurrentBatch", {
+                headers: {
+                    'userid': userid,
+                    'type': type
+                }
+            })
+                .then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $cookieStore.put('batch', response.data)
+                    $rootScope.batch = $cookieStore.get('batch')
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Can not fetch Batch Data")
+                });
+
+        }
+    }
+    //TODO: /batch/generateBatchs
+    //TODO: /batch/userBatchPrograss
+    this.getUserBatchPrograss = function () {
+        $http.get(backendUrl.url + "batch/userBatchPrograss", {
+            headers: {
+                'userid': userid,
+                'type': type
+            }
+        })
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $cookieStore.put('batchProgress', response.data)
+                $rootScope.batchProgress = $cookieStore.get('batchProgress')
+
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("Can not fetch Batch Data")
+            });
+
+    }
+    this.putUserBatchPrograss = function (data, callback) {
+        var req = {
+            method: 'PUT',
+            url: backendUrl.url + 'batch/userBatchPrograss',
+            data: data
+        }
+        $http(req)
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+
+                callback()
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+
+    }
+    //TODO: batch check. Auto change batch
+    this.getBatchImageUrl = function () {
+        var displayImg = function (url) {
+            $rootScope.imageUrl = url
+        }
+
+        if ($rootScope.images) {
+            var imageUrl = backendUrl.img + $rootScope.batch['files'][$rootScope.imageId]
+            var options = {canvas: true}
             console.log(imageUrl)
             displayImg(imageUrl)
             EXIF.getData(imageUrl, function () {
@@ -135,5 +225,6 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
+
 
 })

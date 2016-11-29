@@ -56,6 +56,12 @@ app.config(function ($routeProvider) {
         });
 });
 
+app.filter('percentage', ['$filter', function ($filter) {
+    return function (input, decimals) {
+        return $filter('number')(input * 100, decimals) + '%';
+    };
+}]);
+
 
 var checkRouting = function ($q, $rootScope, $location, id) {
     if (id.isLogin()) {
@@ -66,7 +72,9 @@ var checkRouting = function ($q, $rootScope, $location, id) {
 };
 
 var backendUrl = {
+    testurl:"localhost:5000/",
     url:"http://hpcg.doudoujay.com:5000/",
     img: "http://hpcg.doudoujay.com:5000/static/data/img/",
     imgData: "http://hpcg.doudoujay.com:5000/static/data/imgData/"
 }
+var annotatorType = ['objectAnnotator','imageAnnotator']
