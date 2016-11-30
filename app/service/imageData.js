@@ -1,7 +1,7 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $timeout, $cookieStore) {
+app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $timeout, $cookieStore,$location) {
     if ($cookieStore.get('imageId')) {
         $rootScope.imageId = $cookieStore.get('imageId')
     } else {
@@ -57,6 +57,8 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
+    
+    
 
     this.submitImageData = function (imageData, imageDataName, callback) {
 
@@ -225,6 +227,45 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
+    
+    this.getBatchNoChached = function () {
+        if ($cookieStore.get('id') == null){
+            alert('No User Logged')
+            return
+        }
 
+        call = function (type) {
+            $http.get(backendUrl.url + "batch/userCurrentBatch", {
+                headers: {
+                    'userid': $cookieStore.get('id'),
+                    'type': type
+                }
+            })
+                .then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $cookieStore.put('batch', response.data)
+                    $rootScope.batch = $cookieStore.get('batch')
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Can not fetch Batch Data")
+                });
+        }
+        if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+            type = annotatorType[1]
+            call(type)
+            return
+        }
+        if ($location.url() == '/area-selector'){
+            type = annotatorType[0]
+            call(type)
+            return
+        }
+        alert('No type specified')
+
+
+    }
 
 })

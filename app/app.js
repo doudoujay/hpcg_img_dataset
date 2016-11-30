@@ -13,6 +13,7 @@ app.controller('main', function ($scope,$cookieStore,$location,imageData) {
     $scope.refresh =function () {
         //TODO: sync compability
         imageData.getImagesNoCached()
+        imageData.getBatchNoChached()
     }
     imageData.getImages()
 
