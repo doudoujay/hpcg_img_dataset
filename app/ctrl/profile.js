@@ -37,7 +37,7 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,im
 
     $scope.generateBatchs = function () {
         imageData.generateBatchs(function () {
-            
+            imageData.getUserCurrentBatch()
         })
     }
 

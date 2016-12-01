@@ -138,17 +138,18 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
-    this.getUserCurrentBatch = function (userid, type) {
-        if ($cookieStore.get('batch')) {
-            $rootScope.batch = $cookieStore.get('batch')
-        } else {
+    this.getUserCurrentBatch = function (callback) {
+
+        call = function (type,callback) {
+
             $http.get(backendUrl.url + "batch/userCurrentBatch", {
                 headers: {
-                    'userid': userid,
+                    'userid': $cookieStore.get('id'),
                     'type': type
                 }
             })
                 .then(function successCallback(response) {
+                    console.log('getUserCurrentBatch')
                     // this callback will be called asynchronously
                     // when the response is available
                     if (response.data == null){
@@ -157,6 +158,12 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     }
                     $cookieStore.put('batch', response.data)
                     $rootScope.batch = $cookieStore.get('batch')
+                    $rootScope.imageId = $rootScope.batch['current'][type]
+                    console.log($rootScope.imageId)
+                    if (callback != null){
+                        callback()
+                    }
+
 
 
                 }, function errorCallback(response) {
@@ -164,12 +171,26 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     // or server returns response with an error status.
                     alert("Can not fetch Batch Data")
                 });
+        }
 
+        if ($cookieStore.get('batch')) {
+            $rootScope.batch = $cookieStore.get('batch')
+        } else {
+            if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+                type = annotatorType[1]
+                call(type,callback)
+                return
+            }
+            if ($location.url() == '/area-selector'){
+                type = annotatorType[0]
+                call(type,callback)
+                return
+            }
         }
     }
     //TODO: /batch/generateBatchs
     //TODO: /batch/userBatchPrograss
-    this.getUserBatchPrograss = function () {
+    this.getUserBatchPrograss = function (callback) {
         call = function (type) {
             $http.get(backendUrl.url + "batch/userBatchPrograss", {
                 headers: {
@@ -184,7 +205,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     $cookieStore.put('batchProgress', response.data)
                     $rootScope.batchProgress = $cookieStore.get('batchProgress')
                     console.log('getUserBatchPrograss'+response.data)
-
+                    if(callback) callback()
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
@@ -204,18 +225,21 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
-    this.putUserBatchPrograss = function (data, callback) {
+    this.putUserBatchPrograss = function (callback) {
         var req = {
             method: 'PUT',
             url: backendUrl.url + 'batch/userBatchPrograss',
-            data: data
+            data: {
+                "type": annotatorType[1],
+                "userid": $cookieStore.get('id'),
+                "value": $rootScope.imageId
+            }
         }
         $http(req)
             .then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
                 console.log(response.data)
-                alert('Progress Saved')
                 callback()
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
@@ -234,7 +258,6 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         if ($rootScope.images) {
             var imageUrl = backendUrl.img + $rootScope.batch['files'][$rootScope.imageId]
             var options = {canvas: true}
-            console.log(imageUrl)
             displayImg(imageUrl)
             EXIF.getData(imageUrl, function () {
                 var allMetaData = EXIF.getAllTags(this);
@@ -250,7 +273,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
     }
     
-    this.getBatchNoChached = function () {
+    this.getBatchNoChached = function (callback) {
         if ($cookieStore.get('id') == null){
             alert('No User Logged')
             return
@@ -266,8 +289,18 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 .then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
+                    if (response.data == null){
+                        alert("No Batch Data")
+                        $location.path('/')
+                    }
                     $cookieStore.put('batch', response.data)
                     $rootScope.batch = $cookieStore.get('batch')
+                    $rootScope.imageId = $rootScope.batch['current'][type]
+                    console.log($rootScope.imageId)
+                    if (callback != null ){
+                        callback()
+                    }
+
 
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
