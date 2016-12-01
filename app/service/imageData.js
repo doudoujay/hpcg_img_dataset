@@ -151,8 +151,13 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 .then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
+                    if (response.data == null){
+                        alert("No Batch Data")
+                        $location.path('/')
+                    }
                     $cookieStore.put('batch', response.data)
                     $rootScope.batch = $cookieStore.get('batch')
+
 
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
@@ -165,23 +170,38 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
     //TODO: /batch/generateBatchs
     //TODO: /batch/userBatchPrograss
     this.getUserBatchPrograss = function () {
-        $http.get(backendUrl.url + "batch/userBatchPrograss", {
-            headers: {
-                'userid': userid,
-                'type': type
-            }
-        })
-            .then(function successCallback(response) {
-                // this callback will be called asynchronously
-                // when the response is available
-                $cookieStore.put('batchProgress', response.data)
-                $rootScope.batchProgress = $cookieStore.get('batchProgress')
+        call = function (type) {
+            $http.get(backendUrl.url + "batch/userBatchPrograss", {
+                headers: {
+                    'userid': $cookieStore.get('id'),
+                    'type': type
+                }
+            })
+                .then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
 
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                alert("Can not fetch Batch Data")
-            });
+                    $cookieStore.put('batchProgress', response.data)
+                    $rootScope.batchProgress = $cookieStore.get('batchProgress')
+                    console.log('getUserBatchPrograss'+response.data)
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Can not fetch Batch Data")
+                });
+
+        }
+        if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+            type = annotatorType[1]
+            call(type)
+            return
+        }
+        if ($location.url() == '/area-selector'){
+            type = annotatorType[0]
+            call(type)
+            return
+        }
 
     }
     this.putUserBatchPrograss = function (data, callback) {
@@ -194,7 +214,8 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             .then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-
+                console.log(response.data)
+                alert('Progress Saved')
                 callback()
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
@@ -205,6 +226,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
     }
     //TODO: batch check. Auto change batch
     this.getBatchImageUrl = function () {
+        // TODO: load image url by current progress on server
         var displayImg = function (url) {
             $rootScope.imageUrl = url
         }
@@ -267,5 +289,22 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
-
+    this.generateBatchs = function (callback) {
+        var req = {
+            method: 'PUT',
+            url: backendUrl.url + 'batch/generateBatchs',
+            data: {'size':10}
+        }
+        $http(req)
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log(response.data)
+                alert('Generation complete')
+                callback()
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    }
 })

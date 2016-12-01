@@ -1,7 +1,7 @@
 /**
  * Created by jay on 2016/11/21.
  */
-app.controller('profile', function ($scope,$location,$cookieStore, $rootScope) {
+app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,imageData) {
 
     $scope.id = $cookieStore.get('id')
     var dataPreferences = {
@@ -34,5 +34,11 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope) {
         labels: ['62%','32%'],
         series: [62, 32]
     });
+
+    $scope.generateBatchs = function () {
+        imageData.generateBatchs(function () {
+            
+        })
+    }
 
 });
