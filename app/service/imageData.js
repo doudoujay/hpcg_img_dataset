@@ -152,8 +152,9 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     console.log('getUserCurrentBatch')
                     // this callback will be called asynchronously
                     // when the response is available
-                    if (response.data == null){
-                        alert("No Batch Data")
+                    if (response.data == {}){
+                        console.log(response.data)
+                        alert("No Batch Data Left")
                         $location.path('/')
                     }
                     $cookieStore.put('batch', response.data)
@@ -188,8 +189,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             }
         }
     }
-    //TODO: /batch/generateBatchs
-    //TODO: /batch/userBatchPrograss
+
     this.getUserBatchPrograss = function (callback) {
         call = function (type) {
             $http.get(backendUrl.url + "batch/userBatchPrograss", {
@@ -248,9 +248,9 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
-    //TODO: batch check. Auto change batch
+
     this.getBatchImageUrl = function () {
-        // TODO: load image url by current progress on server
+
         var displayImg = function (url) {
             $rootScope.imageUrl = url
         }
@@ -289,13 +289,16 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 .then(function successCallback(response) {
                     // this callback will be called asynchronously
                     // when the response is available
-                    if (response.data == null){
-                        alert("No Batch Data")
+
+                    if (response.data == {}){
+                        console.log(response.data)
+                        alert("No Batch Data Left")
                         $location.path('/')
                     }
                     $cookieStore.put('batch', response.data)
                     $rootScope.batch = $cookieStore.get('batch')
                     $rootScope.imageId = $rootScope.batch['current'][type]
+                    $cookieStore.put('imageId', $rootScope.imageId)
                     console.log($rootScope.imageId)
                     if (callback != null ){
                         callback()
@@ -333,6 +336,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 // this callback will be called asynchronously
                 // when the response is available
                 console.log(response.data)
+
                 alert('Generation complete')
                 callback()
             }, function errorCallback(response) {

@@ -1,19 +1,27 @@
 /**
  * Created by jay on 2016/11/2.
  */
-app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location) {
+app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location,ngDialog,$route) {
     $scope.id = $cookieStore.get('id')
-    imageData.getUserCurrentBatch()
-    imageData.getBatchImageUrl()
-    imageData.getUserBatchPrograss()
+    imageData.getBatchNoChached(function () {
+        imageData.getBatchImageUrl()
+        imageData.getUserBatchPrograss(function () {
+            $scope.batchProgress = $cookieStore.get('batchProgress')
+        })
+    })
+    $scope.$watch(function () {
+        return $rootScope.batchProgress;
+    }, function () {
+        $scope.batchProgress = $rootScope.batchProgress;
+    }, true);
 
-    $scope.batchProgress = $cookieStore.get('batchProgress')
+
 
     $scope.ultimateSubmission = function (callback) {
         imageData.putUserBatchPrograss(function () {
             imageData.getBatchNoChached(function () {
 
-                imageData.getImageUrl()
+                imageData.getBatchImageUrl()
                 imageData.getUserBatchPrograss(function () {
                     $scope.batchProgress = $cookieStore.get('batchProgress')
                     if (callback) callback()
@@ -46,7 +54,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     $scope.goNext = function () {
         var callback = function () {
             if ($rootScope.imageId == $rootScope.batch['files'].length - 1) {
-                alert("No More Image")
+                ngDialog.open({ template: 'prompt',controller: 'quikCategory' });
             } else {
                 $rootScope.imageId = $rootScope.imageId + 1
                 $cookieStore.put('imageId', $rootScope.imageId)
@@ -63,7 +71,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
         if ($rootScope.category) {
             var callback = function () {
                 if ($rootScope.imageId == $rootScope.images.length - 1) {
-                    alert("No More Image")
+                    ngDialog.open({ template: 'prompt',controller: 'quikCategory' });
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
                     $cookieStore.put('imageId', $rootScope.imageId + 1)
@@ -88,7 +96,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
         if ($rootScope.category) {
             var callback = function () {
                 if ($rootScope.imageId == $rootScope.images.length - 1) {
-                    alert("No More Image")
+                    ngDialog.open({ template: 'prompt',controller: 'quikCategory' });
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
                     $cookieStore.put('imageId', $rootScope.imageId + 1)
@@ -107,12 +115,22 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
             alert('Please select the category')
         }
     }
-    $scope.save = function () {
+    $scope.quitAndSave = function () {
         $scope.ultimateSubmission(function () {
-            alert('Saved')
+            ngDialog.close()
             $location.path('/')
         })
 
+
+    }
+    
+    $scope.nextBatch =function () {
+        ngDialog.close()
+        $rootScope.imageId = $rootScope.imageId + 1
+        $scope.ultimateSubmission(function () {
+
+
+        })
 
     }
 

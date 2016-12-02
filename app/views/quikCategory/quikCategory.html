@@ -20,10 +20,15 @@
                     <div class="row">
                         <button class="btn btn-default btn-lg" ng-click="goBack()" hotkey="{left:goBack}">Back</button>
                         <button class="btn btn-default btn-lg" ng-click="goNext()" hotkey="{right:goNext}">Next</button>
-                        <button class="btn btn-danger btn-lg" ng-click="save()">Quit&Save</button>
                     </div>
+                    <script type="text/ng-template" id="prompt">
+                        <div class="text-center">
+                            <h2>You completed this Batch</h2>
+                            <button class="btn btn-default btn-lg" ng-click="quitAndSave()">Quit&Save</button>
+                            <button class="btn btn-danger btn-lg" ng-click="nextBatch()">Next Batch</button>
+                        </div>
 
-
+                    </script>
 
 
                 </div>
