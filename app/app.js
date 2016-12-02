@@ -63,6 +63,26 @@ app.filter('percentage', ['$filter', function ($filter) {
     };
 }]);
 
+// //Image loader
+// app.directive('imageonload', function() {
+//     return {
+//         restrict: 'A',
+//
+//         link: function(scope, element) {
+//             element.on('load', function() {
+//                 // Set visibility: true + remove spinner overlay
+//                 $('#image').hide()
+//                 $('#imgloader').show()
+//             });
+//             scope.$watch('ngSrc', function() {
+//                 // Set visibility: false + inject temporary spinner overlay
+//                 $('#imgloader').hide()
+//                 $('#image').show()
+//                 // element.parent().append('<span class="spinner"></span>');
+//             });
+//         }
+//     };
+// });
 
 var checkRouting = function ($q, $rootScope, $location, id) {
     if (id.isLogin()) {

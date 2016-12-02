@@ -15,6 +15,10 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
         $scope.batchProgress = $rootScope.batchProgress;
     }, true);
 
+    $scope.$on('angular-spinkit:imageLoaded', function () {
+        console.log('loaded')
+        $('#imgloader').hide()
+    });
 
 
     $scope.ultimateSubmission = function (callback) {
@@ -22,6 +26,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
             imageData.getBatchNoChached(function () {
 
                 imageData.getBatchImageUrl()
+
                 imageData.getUserBatchPrograss(function () {
                     $scope.batchProgress = $cookieStore.get('batchProgress')
                     if (callback) callback()
