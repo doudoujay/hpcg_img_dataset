@@ -249,7 +249,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
     }
 
-    this.getBatchImageUrl = function () {
+    this.getBatchImageUrl = function (callback) {
 
         var displayImg = function (url) {
             $rootScope.imageUrl = url
@@ -264,7 +264,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 console.log(allMetaData.orientation)
             });
 
-
+            if (callback) callback()
         } else {
 
             console.log('no data')

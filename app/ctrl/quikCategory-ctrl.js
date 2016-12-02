@@ -2,8 +2,15 @@
  * Created by jay on 2016/11/2.
  */
 app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location,ngDialog,$route) {
+
     $scope.id = $cookieStore.get('id')
+    $scope.loadImageInit = function () {
+        $('#image').hide()
+        $('#imgloader').show()
+    }
+    $scope.loadImageInit()
     imageData.getBatchNoChached(function () {
+
         imageData.getBatchImageUrl()
         imageData.getUserBatchPrograss(function () {
             $scope.batchProgress = $cookieStore.get('batchProgress')
@@ -18,14 +25,18 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     $scope.$on('angular-spinkit:imageLoaded', function () {
         console.log('loaded')
         $('#imgloader').hide()
+        $('#image').show()
     });
+
 
 
     $scope.ultimateSubmission = function (callback) {
         imageData.putUserBatchPrograss(function () {
             imageData.getBatchNoChached(function () {
 
-                imageData.getBatchImageUrl()
+                imageData.getBatchImageUrl(function () {
+                    $scope.loadImageInit()
+                })
 
                 imageData.getUserBatchPrograss(function () {
                     $scope.batchProgress = $cookieStore.get('batchProgress')
