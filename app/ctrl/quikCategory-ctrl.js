@@ -75,7 +75,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     $scope.yes = function () {
         if ($rootScope.category) {
             var callback = function () {
-                if ($rootScope.imageId == $rootScope.images.length - 1) {
+                if ($rootScope.imageId == $rootScope.batch['files'].length - 1) {
                     ngDialog.open({ template: 'prompt',controller: 'quikCategory' });
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
@@ -86,7 +86,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
 
                 }
             }
-            var imageName = $scope.images[$scope.imageId]
+            var imageName = $rootScope.batch['files'][$scope.imageId]
             var result = {}
             result[$rootScope.category] = true
             imageData.submitQuikCategoryData(result, imageName, callback)
@@ -100,7 +100,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     $scope.no = function () {
         if ($rootScope.category) {
             var callback = function () {
-                if ($rootScope.imageId == $rootScope.images.length - 1) {
+                if ($rootScope.imageId == $rootScope.batch['files'].length - 1) {
                     ngDialog.open({ template: 'prompt',controller: 'quikCategory' });
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
@@ -111,7 +111,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
                 }
             }
             callback()
-            var imageName = $scope.images[$scope.imageId]
+            var imageName = $rootScope.batch['files'][$scope.imageId]
             var result = {}
             result[$rootScope.category] = false
             imageData.submitQuikCategoryData(result, imageName, callback)

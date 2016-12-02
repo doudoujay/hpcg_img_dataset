@@ -6,6 +6,7 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
 
     $scope.fields900 = [];
     imageData.getImages()
+    imageData.getImageData($rootScope.images[$rootScope.imageId])
 
 
     $scope.$watch(function () {
@@ -20,10 +21,10 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
     //     $scope.imageUrl = $scope.imageUrl;
     // }, true);
 
-    imageData.getImageData($rootScope.images[$rootScope.imageId])
+
 
     $scope.$on('angular-spinkit:imageLoaded', function () {
-        $('#imgloader').remove()
+        $('#imgloader').hide()
     });
 
 
