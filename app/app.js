@@ -11,7 +11,6 @@ app.controller('main', function ($scope,$cookieStore,$location,imageData) {
         $location.path('/login').replace()
     }
     $scope.refresh =function () {
-        //TODO: sync compability
         imageData.getImagesNoCached()
         imageData.getBatchNoChached()
     }

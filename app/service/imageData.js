@@ -1,7 +1,7 @@
 /**
  * Created by jay on 2016/9/30.
  */
-app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $timeout, $cookieStore,$location) {
+app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $timeout, $cookieStore, $location) {
     if ($cookieStore.get('imageId')) {
         $rootScope.imageId = $cookieStore.get('imageId')
     } else {
@@ -57,8 +57,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
-    
-    
+
 
     this.submitImageData = function (imageData, imageDataName, callback) {
 
@@ -105,8 +104,8 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             .then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                console.log(response.data)
                 $rootScope.fields900 = response.data
-                console.log($rootScope.fields900)
 
 
             }, function errorCallback(response) {
@@ -138,9 +137,12 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
+
+    //Batch
+
     this.getUserCurrentBatch = function (callback) {
 
-        call = function (type,callback) {
+        call = function (type, callback) {
 
             $http.get(backendUrl.url + "batch/userCurrentBatch", {
                 headers: {
@@ -152,7 +154,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     console.log('getUserCurrentBatch')
                     // this callback will be called asynchronously
                     // when the response is available
-                    if (response.data == {}){
+                    if (response.data == {}) {
                         console.log(response.data)
                         alert("No Batch Data Left")
                         $location.path('/')
@@ -161,10 +163,9 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     $rootScope.batch = $cookieStore.get('batch')
                     $rootScope.imageId = $rootScope.batch['current'][type]
                     console.log($rootScope.imageId)
-                    if (callback != null){
+                    if (callback != null) {
                         callback()
                     }
-
 
 
                 }, function errorCallback(response) {
@@ -175,16 +176,17 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
         if ($cookieStore.get('batch')) {
+            //Cache
             $rootScope.batch = $cookieStore.get('batch')
         } else {
-            if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+            if (($location.url() == '/quikCategory') || ($location.url() == '/dashboard')) {
                 type = annotatorType[1]
-                call(type,callback)
+                call(type, callback)
                 return
             }
-            if ($location.url() == '/area-selector'){
+            if ($location.url() == '/area-selector') {
                 type = annotatorType[0]
-                call(type,callback)
+                call(type, callback)
                 return
             }
         }
@@ -204,8 +206,8 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
                     $cookieStore.put('batchProgress', response.data)
                     $rootScope.batchProgress = $cookieStore.get('batchProgress')
-                    console.log('getUserBatchPrograss'+response.data)
-                    if(callback) callback()
+                    console.log('getUserBatchPrograss' + response.data)
+                    if (callback) callback()
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
@@ -213,12 +215,12 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 });
 
         }
-        if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+        if (($location.url() == '/quikCategory') || ($location.url() == '/dashboard')) {
             type = annotatorType[1]
             call(type)
             return
         }
-        if ($location.url() == '/area-selector'){
+        if ($location.url() == '/area-selector') {
             type = annotatorType[0]
             call(type)
             return
@@ -226,25 +228,39 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
     }
     this.putUserBatchPrograss = function (callback) {
-        var req = {
-            method: 'PUT',
-            url: backendUrl.url + 'batch/userBatchPrograss',
-            data: {
-                "type": annotatorType[1],
-                "userid": $cookieStore.get('id'),
-                "value": $rootScope.imageId
+        call = function (type) {
+            var req = {
+                method: 'PUT',
+                url: backendUrl.url + 'batch/userBatchPrograss',
+                data: {
+                    "type": type,
+                    "userid": $cookieStore.get('id'),
+                    "value": $rootScope.imageId
+                }
             }
+            $http(req)
+                .then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    console.log(response.data)
+                    callback()
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
         }
-        $http(req)
-            .then(function successCallback(response) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log(response.data)
-                callback()
-            }, function errorCallback(response) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+
+
+        if (($location.url() == '/quikCategory') || ($location.url() == '/dashboard')) {
+            type = annotatorType[1]
+            call(type)
+            return
+        }
+        if ($location.url() == '/area-selector') {
+            type = annotatorType[0]
+            call(type)
+            return
+        }
 
 
     }
@@ -272,9 +288,9 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         }
 
     }
-    
+
     this.getBatchNoChached = function (callback) {
-        if ($cookieStore.get('id') == null){
+        if ($cookieStore.get('id') == null) {
             alert('No User Logged')
             return
         }
@@ -290,7 +306,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     // this callback will be called asynchronously
                     // when the response is available
 
-                    if (response.data == {}){
+                    if (response.data == {}) {
                         console.log(response.data)
                         alert("No Batch Data Left")
                         $location.path('/')
@@ -299,8 +315,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     $rootScope.batch = $cookieStore.get('batch')
                     $rootScope.imageId = $rootScope.batch['current'][type]
                     $cookieStore.put('imageId', $rootScope.imageId)
-                    console.log($rootScope.imageId)
-                    if (callback != null ){
+                    if (callback != null) {
                         callback()
                     }
 
@@ -311,12 +326,12 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                     alert("Can not fetch Batch Data")
                 });
         }
-        if ( ($location.url() == '/quikCategory') || ($location.url() == '/dashboard')){
+        if (($location.url() == '/quikCategory') || ($location.url() == '/dashboard')) {
             type = annotatorType[1]
             call(type)
             return
         }
-        if ($location.url() == '/area-selector'){
+        if ($location.url() == '/area-selector') {
             type = annotatorType[0]
             call(type)
             return
@@ -329,7 +344,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         var req = {
             method: 'PUT',
             url: backendUrl.url + 'batch/generateBatchs',
-            data: {'size':10}
+            data: {'size': 100}
         }
         $http(req)
             .then(function successCallback(response) {

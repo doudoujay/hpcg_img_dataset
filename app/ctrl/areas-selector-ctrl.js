@@ -22,7 +22,6 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
     // }, true);
 
 
-
     $scope.$on('angular-spinkit:imageLoaded', function () {
         $('#imgloader').hide()
     });
@@ -55,35 +54,35 @@ app.controller('area-selector', function ($scope, imageData, saveToPc, $rootScop
 
     //Buttons
     $scope.goBack = function () {
-        var callback = function () {
-            if ($rootScope.imageId == 0) {
-                alert("No More Image")
-            } else {
+        if ($rootScope.imageId == 0) {
+            alert("No More Image")
+        } else {
 
+            var callback = function () {
                 $cookieStore.put('imageId', $rootScope.imageId - 1)
                 $window.location.reload();
 
-
             }
+            imageData.submitImageData($scope.log900, $scope.images[$scope.imageId], callback)
+
         }
 
-        imageData.submitImageData($scope.log900, $scope.images[$scope.imageId], callback)
 
     }
     $scope.goNext = function () {
-        var callback = function () {
-            if ($rootScope.imageId == $rootScope.images.length - 1) {
-                alert("No More Image")
-            } else {
+        if ($rootScope.imageId == $rootScope.images.length - 1) {
+            alert("No More Image")
+        } else {
 
-
+            var callback = function () {
                 $cookieStore.put('imageId', $rootScope.imageId + 1)
                 $window.location.reload();
 
-
             }
+            imageData.submitImageData($scope.log900, $scope.images[$scope.imageId], callback)
+
+
         }
-        imageData.submitImageData($scope.log900, $scope.images[$scope.imageId], callback)
 
 
     }
