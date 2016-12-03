@@ -2,7 +2,7 @@
  * Created by jay on 2016/11/2.
  */
 app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location,ngDialog,$route) {
-
+    $rootScope.category = 'category'
     $scope.id = $cookieStore.get('id')
     $scope.loadImageInit = function () {
         $('#image').hide()
