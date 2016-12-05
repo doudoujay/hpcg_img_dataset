@@ -271,7 +271,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             $rootScope.imageUrl = url
         }
 
-        if ($rootScope.images) {
+        if ($rootScope.batch['files']) {
             var imageUrl = backendUrl.img + $rootScope.batch['files'][$rootScope.imageId]
             var options = {canvas: true}
             displayImg(imageUrl)
@@ -283,7 +283,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
             if (callback) callback()
         } else {
 
-            console.log('no data')
+            alert('no data')
 
         }
 
