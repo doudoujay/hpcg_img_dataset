@@ -10,7 +10,18 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     }
     $scope.loadImageInit()
     imageData.getBatchNoChached(function () {
+        imageData.getQuikCategoryData($rootScope.batch['files'][$scope.imageId],function () {
+            if ($scope.quikCategoryData.length > 0){
+                if ($scope.quikCategoryData[0]['category']){
+                    $scope.imageStyle = {'background-color': 'green'}
+                }else {
+                    $scope.imageStyle = {'background-color': 'red'}
+                }
+            }else {
+                $scope.imageStyle = {'background-color': 'white'}
+            }
 
+        })
         imageData.getBatchImageUrl()
         imageData.getUserBatchPrograss(function () {
             $scope.batchProgress = $cookieStore.get('batchProgress')
@@ -33,7 +44,19 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
     $scope.ultimateSubmission = function (callback) {
         imageData.putUserBatchPrograss(function () {
             imageData.getBatchNoChached(function () {
+                imageData.getQuikCategoryData($rootScope.batch['files'][$scope.imageId],function () {
+                    if ($scope.quikCategoryData.length > 0){
+                        if ($scope.quikCategoryData[0]['category']){
+                            $scope.imageStyle = {'background-color': 'green'}
+                        }else {
+                            $scope.imageStyle = {'background-color': 'red'}
+                        }
+                    }else {
+                        $scope.imageStyle = {'background-color': 'white'}
+                    }
 
+
+                })
                 imageData.getBatchImageUrl(function () {
                     $scope.loadImageInit()
                 })

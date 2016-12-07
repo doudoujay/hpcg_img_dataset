@@ -93,6 +93,22 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
                 // or server returns response with an error status.
             });
     }
+    this.getQuikCategoryData = function (imageDataName, callback) {
+        var req = {
+            method: 'GET',
+            url: backendUrl.url + 'imageQuikCategory/' + imageDataName
+        }
+        $http(req)
+            .then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $rootScope.quikCategoryData = response.data
+                callback()
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    }
     this.getImageData = function (imageDataName) {
 
         var req = {

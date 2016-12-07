@@ -10,10 +10,13 @@
                             {{batchProgress | percentage:2}}
                         </div>
                     </div>
-                    <img width='800' height='600' ng-src={{imageUrl}} spinkit-image-preloader='three-bounce-spinner' class="col-md-12" id="imgloader"/>
-                    <img  ng-src={{imageUrl}} alt="" class="col-md-12" id="image">
+                    <div >
+                        <img width='800' height='600' ng-src={{imageUrl}} spinkit-image-preloader='three-bounce-spinner' class="col-md-12" id="imgloader"/>
+                        <img  ng-src={{imageUrl}} alt="" class="col-md-12" id="image" ng-style="imageStyle">
+                    </div>
+
                     <div class="row">
-                        <button class="btn btn-default btn-lg" ng-click="yes()" hotkey="{up:yes}">Yes</button>
+                        <button class="btn btn-default btn-lg " ng-click="yes()" hotkey="{up:yes}">Yes</button>
                         <button class="btn btn-default btn-lg" ng-click="no()" hotkey="{down:no}">No</button>
 
                     </div>
