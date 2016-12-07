@@ -13,14 +13,13 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
         imageData.getQuikCategoryData($rootScope.batch['files'][$scope.imageId],function () {
             if ($scope.quikCategoryData.length > 0){
                 if ($scope.quikCategoryData[0]['category']){
-                    $scope.imageStyle = {'background-color': 'green'}
+                    $scope.imageStyle = {'background-color': 'blue'}
                 }else {
-                    $scope.imageStyle = {'background-color': 'red'}
+                    $scope.imageStyle = {'background-color': 'yellow'}
                 }
             }else {
                 $scope.imageStyle = {'background-color': 'white'}
             }
-
         })
         imageData.getBatchImageUrl()
         imageData.getUserBatchPrograss(function () {
@@ -47,9 +46,9 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
                 imageData.getQuikCategoryData($rootScope.batch['files'][$scope.imageId],function () {
                     if ($scope.quikCategoryData.length > 0){
                         if ($scope.quikCategoryData[0]['category']){
-                            $scope.imageStyle = {'background-color': 'green'}
+                            $scope.imageStyle = {'background-color': 'blue'}
                         }else {
-                            $scope.imageStyle = {'background-color': 'red'}
+                            $scope.imageStyle = {'background-color': 'yellow'}
                         }
                     }else {
                         $scope.imageStyle = {'background-color': 'white'}
