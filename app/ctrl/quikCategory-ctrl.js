@@ -14,11 +14,14 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
             if ($scope.quikCategoryData.length > 0) {
                 if ($scope.quikCategoryData[0]['category']) {
                     $scope.imageStyle = {'border': '15px solid #3472F7'}
+                    $scope.status = "Yes"
                 } else {
                     $scope.imageStyle = {'border': '15px solid yellow'}
+                    $scope.status = "No"
                 }
             } else {
                 $scope.imageStyle = {'border': '15px solid white'}
+                $scope.status = "Unclassified"
             }
         })
         imageData.getBatchImageUrl()
@@ -46,13 +49,15 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
                     if ($scope.quikCategoryData.length > 0) {
                         if ($scope.quikCategoryData[0]['category']) {
                             $scope.imageStyle = {'border': '15px solid #3472F7'}
+                            $scope.status = "Yes"
                         } else {
                             $scope.imageStyle = {'border': '15px solid yellow'}
+                            $scope.status = "No"
                         }
                     } else {
                         $scope.imageStyle = {'border': '15px solid white'}
+                        $scope.status = "Unclassified"
                     }
-
 
                 })
                 imageData.getBatchImageUrl(function () {
