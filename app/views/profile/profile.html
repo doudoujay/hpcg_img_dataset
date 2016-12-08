@@ -8,44 +8,44 @@
                         <p class="category">Last Campaing Performance</p>
                     </div>
                     <div class="content">
-                        <div id="imagesChart" class="ct-chart ct-perfect-fourth"></div>
+                        <div id="imageAnnotator" class="ct-chart ct-perfect-fourth"></div>
 
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Annotated
-                                <i class="fa fa-circle text-danger"></i> Images Left
+                                <i class="fa fa-circle text-info"></i> {{imageAnnotator['img']['annotated']}} Annotated
+                                <i class="fa fa-circle text-danger"></i> {{imageAnnotator['img']['left']}} Left
                             </div>
                             <hr>
                             <div class="stats">
-                                <i class="fa fa-clock-o"></i> Campaing sent 2 days ago
+                                <i class="fa fa-clock-o"></i> Batch Status {{imageAnnotator['batch']['annotated']}}/{{imageAnnotator['batch']['left']}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">Objects Annotated</h4>
-                        <p class="category">Last Campaing Performance</p>
-                    </div>
-                    <div class="content">
-                        <div id="objectsChart" class="ct-chart ct-perfect-fourth"></div>
+            <!--<div class="col-md-4">-->
+                <!--<div class="card">-->
+                    <!--<div class="header">-->
+                        <!--<h4 class="title">Objects Annotated</h4>-->
+                        <!--<p class="category">Last Campaing Performance</p>-->
+                    <!--</div>-->
+                    <!--<div class="content">-->
+                        <!--<div id="objectAnnotator" class="ct-chart ct-perfect-fourth"></div>-->
 
-                        <div class="footer">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> Annotated
-                                <i class="fa fa-circle text-danger"></i> Images Left
+                        <!--<div class="footer">-->
+                            <!--<div class="legend">-->
+                                <!--<i class="fa fa-circle text-info"></i> Annotated-->
+                                <!--<i class="fa fa-circle text-danger"></i> Images Left-->
 
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-clock-o"></i> Campaing sent 2 days ago
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <!--</div>-->
+                            <!--<hr>-->
+                            <!--<div class="stats">-->
+                                <!--<i class="fa fa-clock-o"></i> Campaing sent 2 days ago-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="col-md-4">
                 <div class="card card-user">

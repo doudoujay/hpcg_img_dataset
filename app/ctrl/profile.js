@@ -2,8 +2,6 @@
  * Created by jay on 2016/11/21.
  */
 app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,imageData) {
-
-    $scope.id = $cookieStore.get('id')
     var dataPreferences = {
         series: [
             [25, 30, 20, 25]
@@ -21,19 +19,32 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,im
         }
     };
 
-    Chartist.Pie('#imagesChart', dataPreferences, optionsPreferences);
+    $scope.id = $cookieStore.get('id')
+    imageData.getUserStatus('imageAnnotator',function () {
+        Chartist.Pie('#imageAnnotator', dataPreferences, optionsPreferences);
+        var annotatedImgPercentage = ($scope.imageAnnotator['img']['annotated'] / $scope.imageAnnotator['img']['total'])* 100
+        var leftImgPercentage = ($scope.imageAnnotator['img']['left'] / $scope.imageAnnotator['img']['total'])* 100
+        Chartist.Pie('#imageAnnotator', {
+            labels: [annotatedImgPercentage.toFixed(2)+'%',leftImgPercentage.toFixed(2)+'%'],
+            series: [annotatedImgPercentage, leftImgPercentage]
+        });
 
-    Chartist.Pie('#imagesChart', {
-        labels: ['62%','32%'],
-        series: [62, 32]
-    });
+    })
 
-    Chartist.Pie('#objectsChart', dataPreferences, optionsPreferences);
+    // imageData.getUserStatus('objectAnnotator',function () {
+    //
+    //     Chartist.Pie('#objectAnnotator', dataPreferences, optionsPreferences);
+    //     var annotatedImgPercentage = ($scope.objectAnnotator['img']['annotated'] / $scope.objectAnnotator['img']['total'])* 100
+    //     var leftImgPercentage = ($scope.objectAnnotator['img']['left'] / $scope.objectAnnotator['img']['total'])* 100
+    //     Chartist.Pie('#objectAnnotator', {
+    //         labels: [annotatedImgPercentage.toFixed(2)+'%',leftImgPercentage.toFixed(2)+'%'],
+    //         series: [annotatedImgPercentage, leftImgPercentage]
+    //     });
+    //
+    // })
+    //
 
-    Chartist.Pie('#objectsChart', {
-        labels: ['62%','32%'],
-        series: [62, 32]
-    });
+
 
     $scope.generateBatchs = function () {
         imageData.generateBatchs(function () {

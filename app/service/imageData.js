@@ -356,6 +356,47 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
 
 
     }
+
+    this.getUserStatus = function (type,callback) {
+
+        call = function (type) {
+
+            $http.get(backendUrl.url + "user/status", {
+                headers: {
+                    'userid': $cookieStore.get('id'),
+                    'type': type
+                }
+            })
+                .then(function successCallback(response) {
+                    console.log('getUserStatus')
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    if (response.data == {}) {
+
+                        alert("No Data")
+                        $location.path('/')
+                    }
+                    if (type == 'imageAnnotator'){
+                        $rootScope.imageAnnotator = response.data
+                    }
+                    if (type == 'objectAnnotator'){
+                        $rootScope.objectAnnotator = response.data
+                    }
+                    if (callback != null) {
+                        callback()
+                    }
+
+
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Can not fetch Batch Data")
+                });
+        }
+
+        call(type)
+
+    }
     this.generateBatchs = function (callback) {
         var req = {
             method: 'PUT',
