@@ -10,9 +10,9 @@
                             {{batchProgress | percentage:2}}
                         </div>
                     </div>
-                    <div class="col-md-12" ng-style="imageStyle">
+                    <div class="col-md-12" >
                         <img width='800' height='600' ng-src={{imageUrl}} spinkit-image-preloader='three-bounce-spinner' id="imgloader"/>
-                        <img  ng-src={{imageUrl}} alt="" class="" style="" id="image" >
+                        <img  ng-src={{imageUrl}} alt="" class="" style="" id="image" ng-style="imageStyle" >
                     </div>
 
                     <div>
