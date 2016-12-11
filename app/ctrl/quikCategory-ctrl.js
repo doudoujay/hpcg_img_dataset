@@ -1,7 +1,7 @@
 /**
  * Created by jay on 2016/11/2.
  */
-app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location, ngDialog, $route) {
+app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieStore, $location, ngDialog, $route, hotkeys) {
     $rootScope.category = 'category'
     $scope.id = $cookieStore.get('id')
     $scope.loadImageInit = function () {
@@ -66,10 +66,10 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
 
                 imageData.getUserBatchPrograss(function () {
                     $scope.batchProgress = $cookieStore.get('batchProgress')
-                    if (callback) callback()
+
                 })
 
-
+                if (callback) callback()
             })
         })
     }
@@ -116,7 +116,7 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
                     ngDialog.open({template: 'prompt', controller: 'quikCategory'});
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
-                    $cookieStore.put('imageId', $rootScope.imageId + 1)
+                    $cookieStore.put('imageId', $rootScope.imageId)
 
                     $scope.ultimateSubmission()
 
@@ -141,13 +141,13 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
                     ngDialog.open({template: 'prompt', controller: 'quikCategory'});
                 } else {
                     $rootScope.imageId = $rootScope.imageId + 1
-                    $cookieStore.put('imageId', $rootScope.imageId + 1)
+                    $cookieStore.put('imageId', $rootScope.imageId)
 
-                    $scope.ultimateSubmission()
+                    $scope.ultimateSubmission(function () {
+                    })
 
                 }
             }
-            callback()
             var imageName = $rootScope.batch['files'][$scope.imageId]
             var result = {}
             result[$rootScope.category] = false
@@ -176,4 +176,37 @@ app.controller('quikCategory', function ($scope, imageData, $rootScope, $cookieS
 
     }
 
+    hotkeys.add({
+        combo: 'up',
+        action: 'keyup',
+        description: 'Yes',
+        callback: function (event, hotkey) {
+            $scope.yes()
+        }
+    });
+
+    hotkeys.add({
+        combo: 'down',
+        action: 'keyup',
+        description: 'No',
+        callback: function (event, hotkey) {
+            $scope.no()
+        }
+    });
+    hotkeys.add({
+        combo: 'left',
+        action: 'keyup',
+        description: 'goBack',
+        callback: function (event, hotkey) {
+            $scope.goBack()
+        }
+    });
+    hotkeys.add({
+        combo: 'right',
+        action: 'keyup',
+        description: 'goNext',
+        callback: function (event, hotkey) {
+            $scope.goNext()
+        }
+    });
 });
