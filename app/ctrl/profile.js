@@ -24,6 +24,8 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,im
         Chartist.Pie('#imageAnnotator', dataPreferences, optionsPreferences);
         var annotatedImgPercentage = ($scope.imageAnnotator['img']['annotated'] / $scope.imageAnnotator['img']['total'])* 100
         var leftImgPercentage = ($scope.imageAnnotator['img']['left'] / $scope.imageAnnotator['img']['total'])* 100
+        console.log(annotatedImgPercentage)
+        console.log(leftImgPercentage)
         Chartist.Pie('#imageAnnotator', {
             labels: [annotatedImgPercentage.toFixed(2)+'%',leftImgPercentage.toFixed(2)+'%'],
             series: [annotatedImgPercentage, leftImgPercentage]
