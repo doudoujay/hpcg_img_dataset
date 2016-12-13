@@ -1,7 +1,7 @@
 /**
  * Created by jay on 2016/11/21.
  */
-app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,imageData) {
+app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,imageData,hotkeys) {
     var dataPreferences = {
         series: [
             [25, 30, 20, 25]
@@ -53,5 +53,13 @@ app.controller('profile', function ($scope,$location,$cookieStore, $rootScope,im
             imageData.getUserCurrentBatch()
         })
     }
+    hotkeys.add({
+        combo: 'ctrl+shift+r',
+        action: 'keyup',
+        description: 'Refresh',
+        callback: function (event, hotkey) {
+            $scope.generateBatchs()
+        }
+    })
 
 });
