@@ -401,7 +401,7 @@ app.service('imageData', function ($http, $cookieStore, $rootScope, $http, $time
         var req = {
             method: 'PUT',
             url: backendUrl.url + 'batch/generateBatchs',
-            data: {'size': 100}
+            data: {'size': 1000}
         }
         $http(req)
             .then(function successCallback(response) {
